@@ -19,7 +19,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR Apache-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR LicenseRef-GPL-2.0 WITH Assembly-exception
  *******************************************************************************/
-
+#if defined(ALPINE)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
 #include <pthread.h>
 #include <stdlib.h>
 #include "omrcomp.h"
@@ -29,7 +33,7 @@
 #include "threaddef.h"
 #include "thread_internal.h"
 
-#if defined(LINUX) && !defined(OMRZTPF)
+#if defined(LINUX) && !defined(OMRZTPF) && !defined(ALPINE)
 #include <sys/prctl.h>
 #include <linux/prctl.h>
 #endif /* defined(LINUX) */
@@ -128,7 +132,7 @@ set_pthread_name(pthread_t self, pthread_t thread, const char *name)
 		/* for Linux and OSX, the thread being named must be the current thread */
 		return -1;
 	}
-#if defined(LINUX)
+#if defined(LINUX) && !defined(ALPINE)
 #ifndef PR_SET_NAME
 #define PR_SET_NAME 15
 #endif
@@ -136,7 +140,9 @@ set_pthread_name(pthread_t self, pthread_t thread, const char *name)
 	prctl(PR_SET_NAME, name);
 #endif
 	/* we ignore the return value of prctl, since naming is not supported on some older linux distributions */
-#else /* defined(LINUX) */
+#elif defined(ALPINE) /* defined(LINUX) */
+	pthread_setname_np(thread, name);
+#else
 	pthread_setname_np(name);
 #endif /* defined(LINUX) */
 	return 0;

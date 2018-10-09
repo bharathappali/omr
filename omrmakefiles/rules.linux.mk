@@ -43,7 +43,11 @@ endif
 ### Global Flags
 ###
 
+<<<<<<< HEAD
 GLOBAL_CPPFLAGS += -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64
+=======
+GLOBAL_CPPFLAGS += -DLINUX -DALPINE -D_REENTRANT -D_FILE_OFFSET_BITS=64
+>>>>>>> added some changes to function along with musl
 ifeq (gcc,$(OMR_TOOLCHAIN))
 	GLOBAL_CFLAGS+=-fno-strict-aliasing
 	GLOBAL_CXXFLAGS+=-fno-strict-aliasing -std=c++0x

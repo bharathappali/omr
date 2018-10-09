@@ -132,14 +132,23 @@
 #endif
 
 #if defined(LINUX) && !defined(OMRZTPF)
-#include <linux/magic.h>
 #include <sys/sysinfo.h>
 #include <sys/vfs.h>
 #include <sched.h>
 #elif defined(OSX)
 #include <sys/sysctl.h>
 #endif /* defined(LINUX) && !defined(OMRZTPF) */
-
+#if defined(LINUX) && !defined(ALPINE)
+#include <linux/magic.h>
+#endif
+#if defined(ALPINE)
+#define TMPFS_MAGIC 0x01021994
+#define PROC_PARTITIONS PROC_FS_ROOT "partitions"
+#define PROC_DISKSTATS PROC_FS_ROOT "diskstats"
+#ifndef HZ 
+#define HZ 100
+#endif
+#endif
 #include <unistd.h>
 
 #if defined(LINUX)

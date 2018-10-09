@@ -26,16 +26,20 @@
 /* this #include defines the buildspec flags */
 #include "omrthread.h"
 
-#if defined(LINUX)
+#if defined(LINUX) && !defined(ALPINE)
 #if __GLIBC_PREREQ(2,4)
 #include <sys/syscall.h>
 #endif /* __GLIBC_PREREQ(2,4) */
 #elif defined(OSX)
 #include <pthread.h>
 #include <sys/syscall.h>
+#elif defined(ALPINE)
+#include <sys/syscall.h>
+#include <errno.h>
+#include <sys/types.h>
 #endif /* defined(LINUX) */
 
-#if defined(LINUX)
+#if defined(LINUX) && !defined(ALPINE)
 /**
  * This is required to pick up correct thread IDs on Linux
  */
@@ -60,7 +64,7 @@ omrthread_get_ras_tid(void)
 {
 	uintptr_t threadID = 0;
 
-#if defined(LINUX) && !defined(OMRZTPF)
+#if defined(LINUX) && !defined(OMRZTPF) && !defined(ALPINE)
 #if __GLIBC_PREREQ(2,4)
 	/* Want thread id that shows up in /proc etc.  gettid() does not cut it */
 	threadID = syscall(SYS_gettid);
@@ -75,6 +79,8 @@ omrthread_get_ras_tid(void)
     uint64_t tid64;
     pthread_threadid_np(NULL, &tid64);
     threadID = (pid_t)tid64;
+#elif defined(ALPINE)
+	threadID = syscall(SYS_gettid);
 #else /* defined(OSX) */
 	pthread_t myThread = pthread_self();
 

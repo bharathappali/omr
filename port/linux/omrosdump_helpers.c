@@ -33,8 +33,10 @@
 #include <sys/stat.h>
 #if defined(LINUX)
 #include <sys/prctl.h>
-#include <linux/prctl.h>
 #include <sys/resource.h>
+#endif
+#if defined(LINUX) && !defined(ALPINE)
+#include <linux/prctl.h>
 #endif
 #include <elf.h>
 #include <fcntl.h>
