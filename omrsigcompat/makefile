@@ -73,6 +73,9 @@ ifneq (,$(findstring linux,$(OMR_HOST_OS)))
   ifeq (,$(findstring ztpf,$(OMR_HOST_OS)))
     MODULE_SHARED_LIBS += pthread
   endif
+  ifeq (,$(findstring alpine,$(OMR_HOST_OS)))
+    MODULE_SHARED_LIBS += pthread unwind-x86_64
+  endif
 endif
 ifneq (,$(findstring osx,$(OMR_HOST_OS)))
     MODULE_SHARED_LIBS += pthread

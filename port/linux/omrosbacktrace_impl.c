@@ -38,6 +38,10 @@
 #include <string.h>
 
 #include "omrintrospect.h"
+#if defined(ALPINE)
+#define UNW_LOCAL_ONLY
+#include <libunwind.h>
+#endif
 
 uintptr_t protectedBacktrace(struct OMRPortLibrary *port, void *arg);
 uintptr_t backtrace_sigprotect(struct OMRPortLibrary *portLibrary, J9PlatformThread *threadInfo, void **address_array, int capacity);
@@ -61,6 +65,28 @@ handler(struct OMRPortLibrary *portLibrary, uint32_t gpType, void *gpInfo, void 
 /*
  * Wrapped call to libc backtrace function
  */
+#if defined(ALPINE)
+int backtrace( void ** array,int size)
+{
+	unw_cursor_t cursor;
+	unw_context_t context;
+	// Initialize cursor to current frame for local unwinding.
+	unw_getcontext(&context);
+	unw_init_local(&cursor, &context);
+	int cnt=0;
+	// Unwind frames one by one, going up the frame stack.
+	while (unw_step(&cursor) > 0 && cnt < size) {
+		unw_word_t pc;
+		unw_get_reg(&cursor, UNW_REG_IP, &pc);
+		if (pc == 0) {
+			break;
+		}
+		array[cnt++]=(long *)pc;
+	}
+	return cnt;
+} 
+
+#endif
 uintptr_t
 protectedBacktrace(struct OMRPortLibrary *port, void *arg)
 {

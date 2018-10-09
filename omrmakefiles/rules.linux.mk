@@ -263,7 +263,7 @@ ifneq (,$(findstring executable,$(ARTIFACT_TYPE)))
   endif
 
   ## Default Libraries
-  DEFAULT_LIBS:=-lm -lpthread -lc -lrt -ldl -lutil -Wl,-z,origin,-rpath,\$$ORIGIN,--disable-new-dtags,-rpath-link,$(top_srcdir)
+  DEFAULT_LIBS:=-lm -lpthread -lc -lrt -ldl -lutil -lunwind -Wl,-z,origin,-rpath,\$$ORIGIN,--disable-new-dtags,-rpath-link,$(top_srcdir)
   GLOBAL_LDFLAGS+=$(DEFAULT_LIBS)
 endif
 
