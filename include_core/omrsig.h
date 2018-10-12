@@ -28,6 +28,10 @@
 #undef UDATA	/* this is safe because our UDATA is a typedef, not a macro */
 #endif /* defined(OMR_OS_WINDOWS) */
 
+#if defined(ALPINE)
+#define __THROW throw()
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -108,8 +112,10 @@ sighandler_t bsd_signal(int signum, sighandler_t handler) __THROW;
 #if !defined(J9ZOS390)
 sighandler_t sysv_signal(int signum, sighandler_t handler) __THROW;
 #endif /* !defined(J9ZOS390) */
-#if defined(LINUX)
+#if defined(LINUX) && !defined(ALPINE)
 __sighandler_t __sysv_signal(int sig, __sighandler_t handler) __THROW;
+#endif
+#if defined(LINUX)
 sighandler_t ssignal(int sig, sighandler_t handler) __THROW;
 #endif /* defined(LINUX) */
 

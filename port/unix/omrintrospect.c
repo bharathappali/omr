@@ -26,7 +26,7 @@
  * @brief process introspection support
  */
 
-#if defined(LINUX)
+#if defined(LINUX) && !defined(ALPINE)
 /* _GNU_SOURCE forces GLIBC_2.0 sscanf/vsscanf/fscanf for RHEL5 compatability */
 #define _GNU_SOURCE
 #endif /* defined(LINUX) */
@@ -56,6 +56,11 @@
 #include <sys/thread.h>
 #elif defined(J9ZOS390)
 #include <stdlib.h>
+#endif
+
+#if defined(ALPINE)
+#include<libunwind.h>
+#define ucontext_t unw_context_t
 #endif
 
 #include "omrintrospect.h"
@@ -1424,8 +1429,12 @@ setup_native_thread(J9ThreadWalkState *state, thread_context *sigContext, int he
 			/* we're using the provided context instead of generating it */
 			memcpy(state->current_thread->context, ((OMRUnixSignalInfo *)sigContext)->platformSignalInfo.context, size);
 		} else if (state->current_thread->thread_id == omrthread_get_ras_tid()) {
+#if defined(ALPINE)
+			unw_getcontext((ucontext_t *)state->current_thread->context);
+#else
 			/* return context for current thread */
 			getcontext((ucontext_t *)state->current_thread->context);
+#endif
 		} else {
 			memcpy(state->current_thread->context, (void *)data->thread->context, size);
 		}
