@@ -66,7 +66,7 @@ handler(struct OMRPortLibrary *portLibrary, uint32_t gpType, void *gpInfo, void 
  * Wrapped call to libc backtrace function
  */
 #if defined(ALPINE)
-int backtrace( void ** array,int size)
+int backtrace( void ** array, int size)
 {
 	unw_cursor_t cursor;
 	unw_context_t context;
