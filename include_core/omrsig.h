@@ -29,7 +29,9 @@
 #endif /* defined(OMR_OS_WINDOWS) */
 
 #if defined(ALPINE)
-#define __THROW throw()
+#ifndef __THROW
+# define __THROW
+#endif
 #endif
 
 #ifdef __cplusplus

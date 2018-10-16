@@ -27,6 +27,17 @@
 #include "ras/CallStackIterator.hpp"
 #include "compile/Compilation.hpp"
 
+#if defined(ALPINE)
+char ** backtrace_symbols(void *const *trace, int size)
+{
+	return NULL;
+}
+
+int backtrace(void **trace, int size)
+{
+	return 0;
+}
+#endif
 
 void TR_CallStackIterator::printStackBacktrace(TR::Compilation *comp)
    {
@@ -172,8 +183,14 @@ const char *TR_PPCCallStackIterator::getProcedureName()
    }
 
 #elif defined(LINUX)
+#if !defined(ALPINE)
 #include <execinfo.h>
+<<<<<<< HEAD
 #include <cxxabi.h>
+=======
+#include <cxxabi.h> // for abi::__cxa_demangle
+>>>>>>> added changes to succesfully build
+#endif
 
 void TR_LinuxCallStackIterator::printSymbol(int32_t frame, char *sig, TR::Compilation *comp)
    {
