@@ -1361,6 +1361,8 @@ typedef struct OMRPortLibrary {
 	int32_t (*vmem_get_available_physical_memory)(struct OMRPortLibrary *portLibrary, uint64_t *freePhysicalMemorySize);
 	/** see @ref omrvmem.c::omrvmem_get_process_memory_size "omrvmem_get_process_memory_size"*/
 	int32_t (*vmem_get_process_memory_size)(struct OMRPortLibrary *portLibrary, J9VMemMemoryQuery queryType, uint64_t *memorySize);
+	/** see @ref omrvmem.c::omrvmem_is_numa_supported "omrvmem_is_numa_supported"*/
+	BOOLEAN (*vmem_is_numa_supported)(struct OMRPortLibrary *portLibrary);
 	/** see @ref omrstr.c::omrstr_startup "omrstr_startup"*/
 	int32_t (*str_startup)(struct OMRPortLibrary *portLibrary) ;
 	/** see @ref omrstr.c::omrstr_shutdown "omrstr_shutdown"*/
@@ -1923,6 +1925,7 @@ extern J9_CFUNC int32_t omrport_getVersion(struct OMRPortLibrary *portLibrary);
 #define omrvmem_numa_get_node_details(param1,param2) privateOmrPortLibrary->vmem_numa_get_node_details(privateOmrPortLibrary, (param1), (param2))
 #define omrvmem_get_available_physical_memory(param1) privateOmrPortLibrary->vmem_get_available_physical_memory(privateOmrPortLibrary, (param1))
 #define omrvmem_get_process_memory_size(param1,param2) privateOmrPortLibrary->vmem_get_process_memory_size(privateOmrPortLibrary, (param1), (param2))
+#define omrvmem_is_numa_supported() privateOmrPortLibrary->vmem_is_numa_supported(privateOmrPortLibrary)
 #define omrstr_startup() privateOmrPortLibrary->str_startup(privateOmrPortLibrary)
 #define omrstr_shutdown() privateOmrPortLibrary->str_shutdown(privateOmrPortLibrary)
 #define omrstr_printf(...) privateOmrPortLibrary->str_printf(privateOmrPortLibrary, __VA_ARGS__)

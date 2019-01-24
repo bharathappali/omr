@@ -189,6 +189,10 @@ MM_NUMAManager::recacheNUMASupport(MM_EnvironmentBase *env)
 				}
 			}
 		}
+	} else {
+		if (FALSE == omrvmem_is_numa_supported()) {
+			omrthread_numa_set_enabled(false);
+		}
 	}
 
 	return result;

@@ -783,3 +783,13 @@ omrvmem_get_process_memory_size(struct OMRPortLibrary *portLibrary, J9VMemMemory
 	Trc_PRT_vmem_get_process_memory_exit(result, *memorySize);
 	return result;
 }
+
+BOOLEAN
+omrvmem_is_numa_supported(struct OMRPortLibrary *portLibrary)
+{
+        BOOLEAN numaSupport = FALSE;
+        if (PPG_numa_platform_supports_numa == 1) {
+                numaSupport = TRUE;
+        }
+        return numaSupport;
+}

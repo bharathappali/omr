@@ -181,6 +181,7 @@ static OMRPortLibrary MasterPortLibraryTable = {
 	omrvmem_numa_get_node_details, /* vmem_numa_get_node_details */
 	omrvmem_get_available_physical_memory, /* vmem_get_available_physical_memory */
 	omrvmem_get_process_memory_size, /* vmem_get_process_memory_size */
+	omrvmem_is_numa_supported, /* omrvmem_is_numa_supported */
 	omrstr_startup, /* str_startup */
 	omrstr_shutdown, /* str_shutdown */
 	omrstr_printf, /* str_printf */

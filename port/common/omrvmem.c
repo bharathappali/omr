@@ -372,3 +372,13 @@ omrvmem_get_process_memory_size(struct OMRPortLibrary *portLibrary, J9VMemMemory
 {
 	return OMRPORT_ERROR_VMEM_NOT_SUPPORTED;
 }
+
+BOOLEAN
+omrvmem_is_numa_supported(struct OMRPortLibrary *portLibrary)
+{
+        BOOLEAN numaSupport = FALSE;
+        if (PPG_numa_platform_supports_numa == 1) {
+                numaSupport = TRUE;
+        }
+        return numaSupport;
+}

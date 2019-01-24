@@ -1859,3 +1859,14 @@ omrvmem_get_process_memory_size(struct OMRPortLibrary *portLibrary,
 
 	return result;
 }
+
+BOOLEAN
+omrvmem_is_numa_supported(OMRPortLibrary *portLibrary)
+{
+        BOOLEAN numaSupport = FALSE;
+        if (PPG_numa_platform_supports_numa == 1) {
+                numaSupport = TRUE;
+        }
+        return numaSupport;
+}
+

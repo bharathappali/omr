@@ -701,6 +701,8 @@ extern J9_CFUNC int32_t
 omrvmem_get_available_physical_memory(struct OMRPortLibrary *portLibrary, uint64_t *freePhysicalMemorySize);
 extern J9_CFUNC int32_t
 omrvmem_get_process_memory_size(struct OMRPortLibrary *portLibrary, J9VMemMemoryQuery queryType, uint64_t *memorySize);
+extern J9_CFUNC BOOLEAN
+omrvmem_is_numa_supported(struct OMRPortLibrary *portLibrary);
 
 /* J9SourcePort*/
 extern J9_CFUNC int32_t

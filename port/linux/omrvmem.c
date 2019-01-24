@@ -1783,3 +1783,13 @@ addressIterator_next(AddressIterator *iterator, ADDRESS *address)
 
 	return hasNext;
 }
+
+BOOLEAN
+omrvmem_is_numa_supported(struct OMRPortLibrary *portLibrary)
+{
+	BOOLEAN numaSupport = FALSE;
+	if (PPG_numa_platform_supports_numa == 1) {
+		numaSupport = TRUE;
+	}
+	return numaSupport;
+}
