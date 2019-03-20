@@ -78,7 +78,11 @@ ifneq (,$(findstring linux_ppc,$(SPEC)))
   include $(CONFIG_INCL_DIR)/configure_linux_ppc.mk
 endif
 ifneq (,$(findstring linux_x86,$(SPEC)))
-  include $(CONFIG_INCL_DIR)/configure_linux_x86.mk
+  ifneq (,$(findstring musl,$(LIBC)))
+    include $(CONFIG_INCL_DIR)/configure_linux_x86_musl.mk
+  else
+    include $(CONFIG_INCL_DIR)/configure_linux_x86.mk
+  endif
 endif
 ifneq (,$(findstring osx,$(SPEC)))
   include $(CONFIG_INCL_DIR)/configure_osx.mk
@@ -128,7 +132,7 @@ clean: clean-environment-variables
 ###
 
 define CONFIGURE_RECIPE
-sh configure --disable-auto-build-flag 'OMRGLUE=$(OMRGLUE)' 'SPEC=$(SPEC)' $(CONFIGURE_ARGS)
+sh configure --disable-auto-build-flag 'OMRGLUE=$(OMRGLUE)' 'SPEC=$(SPEC)' 'LIBC=$(LIBC)' $(CONFIGURE_ARGS)
 # Force the timestamps of unchanged files to be updated
 touch $(CONFIGURE_OUTPUT_FILES)
 endef

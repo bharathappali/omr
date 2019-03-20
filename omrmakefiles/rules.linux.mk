@@ -51,7 +51,9 @@ endif
 ifeq (xlc,$(OMR_TOOLCHAIN))
     GLOBAL_CXXFLAGS+= -qlanglvl=extended0x
 endif
-
+ifeq (musl, $(OMR_HOST_LIBC))
+    GLOBAL_CPPFLAGS += -DMUSL
+endif
 ifeq (s390,$(OMR_HOST_ARCH))
     GLOBAL_CXXFLAGS+=$(J9M31)
     GLOBAL_CFLAGS+=$(J9M31)
