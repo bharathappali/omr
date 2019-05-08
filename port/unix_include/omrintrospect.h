@@ -41,4 +41,7 @@
 
 typedef ucontext_t thread_context;
 
+#if defined(MUSL)
+typedef union sigval sigval_t;
+#endif
 #endif
