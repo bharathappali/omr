@@ -46,7 +46,7 @@ extern "C" {
 typedef __sighandler_t sighandler_t;
 #elif defined(LINUX) || defined(OSX)
 #if defined(MUSL)
-#define __sighandler_t sighandler_t
+typedef sighandler_t __sighandler_t;
 #endif
 typedef void (*sighandler_t)(int sig);
 #elif defined(J9ZOS390) || defined(AIXPPC)
