@@ -36,9 +36,18 @@ extern "C" {
 #define __THROW
 #endif /* defined(OSX) */
 
+#if defined(MUSL)
+#ifndef __THROW
+#define __THROW
+#endif
+#endif
+
 #if defined(LINUXPPC)
 typedef __sighandler_t sighandler_t;
 #elif defined(LINUX) || defined(OSX)
+#if defined(MUSL)
+#define __sighandler_t sighandler_t
+#endif
 typedef void (*sighandler_t)(int sig);
 #elif defined(J9ZOS390) || defined(AIXPPC)
 typedef void (*sighandler_t)(int sig);
