@@ -27,6 +27,9 @@ CXX?=g++
 # one glorious day we can remove -Wno-write-strings
 CXXFLAGS=-g -std=c++0x -O0 -c -fno-rtti -fPIC -I./include -I../../../include_core -Wno-write-strings
 
+#only for musl
+CXXEXTRAFLAGSMUSL=-lunwind -lexecinfo
+
 .SUFFIXES: .cpp .o
 
 # These tests may not work on all platforms
@@ -128,7 +131,7 @@ SAMPLE_SRC=./samples
 # Rules for individual examples
 
 atomicoperations : $(LIBJITBUILDER) AtomicOperations.o
-	$(CXX) -g -fno-rtti -o $@ AtomicOperations.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ AtomicOperations.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 AtomicOperations.o: $(SAMPLE_SRC)/AtomicOperations.cpp $(SAMPLE_SRC)/AtomicOperations.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
@@ -141,166 +144,166 @@ BadToIlType.o: $(SAMPLE_SRC)/ToIlType.cpp
 
 
 call : $(LIBJITBUILDER) Call.o
-	$(CXX) -g -fno-rtti -o $@ Call.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ Call.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 Call.o: $(SAMPLE_SRC)/Call.cpp $(SAMPLE_SRC)/Call.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 conditionals : $(LIBJITBUILDER) Conditionals.o
-	$(CXX) -g -fno-rtti -o $@ Conditionals.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ Conditionals.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 Conditionals.o: $(SAMPLE_SRC)/Conditionals.cpp $(SAMPLE_SRC)/Conditionals.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 conststring : $(LIBJITBUILDER) ConstString.o
-	$(CXX) -g -fno-rtti -o $@ ConstString.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ ConstString.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 ConstString.o: $(SAMPLE_SRC)/ConstString.cpp $(SAMPLE_SRC)/ConstString.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 dotproduct : $(LIBJITBUILDER) DotProduct.o
-	$(CXX) -g -fno-rtti -o $@ DotProduct.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ DotProduct.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 DotProduct.o: $(SAMPLE_SRC)/DotProduct.cpp $(SAMPLE_SRC)/DotProduct.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 fieldaddress : $(LIBJITBUILDER) FieldAddress.o
-	$(CXX) -g -fno-rtti -o $@ FieldAddress.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ FieldAddress.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 FieldAddress.o: $(SAMPLE_SRC)/FieldAddress.cpp $(SAMPLE_SRC)/FieldAddress.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 issupportedtype : $(LIBJITBUILDER) IsSupportedType.o
-	$(CXX) -g -fno-rtti -o $@ IsSupportedType.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ IsSupportedType.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 IsSupportedType.o: $(SAMPLE_SRC)/IsSupportedType.cpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 iterfib : $(LIBJITBUILDER) IterativeFib.o
-	$(CXX) -g -fno-rtti -o $@ IterativeFib.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ IterativeFib.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL) 
 
 IterativeFib.o: $(SAMPLE_SRC)/IterativeFib.cpp $(SAMPLE_SRC)/IterativeFib.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 linkedlist : $(LIBJITBUILDER) LinkedList.o
-	$(CXX) -g -fno-rtti -o $@ LinkedList.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ LinkedList.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 LinkedList.o: $(SAMPLE_SRC)/LinkedList.cpp $(SAMPLE_SRC)/LinkedList.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 localarray : $(LIBJITBUILDER) LocalArray.o
-	$(CXX) -g -fno-rtti -o $@ LocalArray.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ LocalArray.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 LocalArray.o: $(SAMPLE_SRC)/LocalArray.cpp $(SAMPLE_SRC)/LocalArray.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 mandelbrot : $(LIBJITBUILDER) Mandelbrot.o
-	$(CXX) -g -fno-rtti -o $@ Mandelbrot.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ Mandelbrot.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 Mandelbrot.o: $(SAMPLE_SRC)/Mandelbrot.cpp $(SAMPLE_SRC)/Mandelbrot.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 matmult : $(LIBJITBUILDER) MatMult.o
-	$(CXX) -g -fno-rtti -o $@ MatMult.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ MatMult.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 MatMult.o: $(SAMPLE_SRC)/MatMult.cpp $(SAMPLE_SRC)/MatMult.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 nestedloop : $(LIBJITBUILDER) NestedLoop.o
-	$(CXX) -g -fno-rtti -o $@ NestedLoop.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ NestedLoop.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 NestedLoop.o: $(SAMPLE_SRC)/NestedLoop.cpp $(SAMPLE_SRC)/NestedLoop.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 operandarraytests : $(LIBJITBUILDER) OperandArrayTests.o
-	$(CXX) -g -fno-rtti -o $@ OperandArrayTests.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ OperandArrayTests.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 OperandArrayTests.o: $(SAMPLE_SRC)/OperandArrayTests.cpp $(SAMPLE_SRC)/OperandArrayTests.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 operandstacktests : $(LIBJITBUILDER) OperandStackTests.o
-	$(CXX) -g -fno-rtti -o $@ OperandStackTests.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ OperandStackTests.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 OperandStackTests.o: $(SAMPLE_SRC)/OperandStackTests.cpp $(SAMPLE_SRC)/OperandStackTests.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 pointer : $(LIBJITBUILDER) Pointer.o
-	$(CXX) -g -fno-rtti -o $@ Pointer.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ Pointer.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 Pointer.o: $(SAMPLE_SRC)/Pointer.cpp $(SAMPLE_SRC)/Pointer.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 pow2 : $(LIBJITBUILDER) Pow2.o
-	$(CXX) -g -fno-rtti -o $@ Pow2.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ Pow2.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 Pow2.o: $(SAMPLE_SRC)/Pow2.cpp $(SAMPLE_SRC)/Pow2.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 recfib : $(LIBJITBUILDER) RecursiveFib.o
-	$(CXX) -g -fno-rtti -o $@ RecursiveFib.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ RecursiveFib.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 RecursiveFib.o: $(SAMPLE_SRC)/RecursiveFib.cpp $(SAMPLE_SRC)/RecursiveFib.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 simple : $(LIBJITBUILDER) Simple.o
-	$(CXX) -g -fno-rtti -o $@ Simple.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ Simple.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 Simple.o: $(SAMPLE_SRC)/Simple.cpp $(SAMPLE_SRC)/Simple.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 structarray : $(LIBJITBUILDER) StructArray.o
-	$(CXX) -g -fno-rtti -o $@ StructArray.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ StructArray.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 StructArray.o: $(SAMPLE_SRC)/StructArray.cpp $(SAMPLE_SRC)/StructArray.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 switch : $(LIBJITBUILDER) Switch.o
-	$(CXX) -g -fno-rtti -o $@ Switch.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ Switch.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 Switch.o: $(SAMPLE_SRC)/Switch.cpp $(SAMPLE_SRC)/Switch.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 tableswitch : $(LIBJITBUILDER) TableSwitch.o
-	$(CXX) -g -fno-rtti -o $@ TableSwitch.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ TableSwitch.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 TableSwitch.o: $(SAMPLE_SRC)/TableSwitch.cpp $(SAMPLE_SRC)/TableSwitch.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 toiltype : $(LIBJITBUILDER) ToIlType.o
-	$(CXX) -g -fno-rtti -o $@ ToIlType.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ ToIlType.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 ToIlType.o: $(SAMPLE_SRC)/ToIlType.cpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 transactionaloperations : $(LIBJITBUILDER) TransactionalOperations.o
-	$(CXX) -g -fno-rtti -o $@ TransactionalOperations.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ TransactionalOperations.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 TransactionalOperations.o: $(SAMPLE_SRC)/TransactionalOperations.cpp $(SAMPLE_SRC)/TransactionalOperations.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 union : $(LIBJITBUILDER) Union.o
-	$(CXX) -g -fno-rtti -o $@ Union.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ Union.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 Union.o: $(SAMPLE_SRC)/Union.cpp $(SAMPLE_SRC)/Union.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
@@ -312,14 +315,14 @@ VMRegister.o: $(SAMPLE_SRC)/VMRegister.cpp $(SAMPLE_SRC)/VMRegister.hpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 worklist : $(LIBJITBUILDER) Worklist.o
-	$(CXX) -g -fno-rtti -o $@ Worklist.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ Worklist.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 Worklist.o: $(SAMPLE_SRC)/Worklist.cpp
 	$(CXX) -o $@ $(CXXFLAGS) $<
 
 
 thunks : $(LIBJITBUILDER) Thunk.o
-	$(CXX) -g -fno-rtti -o $@ Thunk.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl
+	$(CXX) -g -fno-rtti -o $@ Thunk.o -L$(LIBJITBUILDERDIR) -ljitbuilder -ldl $(CXXEXTRAFLAGSMUSL)
 
 Thunk.o: $(SAMPLE_SRC)/Thunk.cpp
 	$(CXX) -o $@ $(CXXFLAGS) $<

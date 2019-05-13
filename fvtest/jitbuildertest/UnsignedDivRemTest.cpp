@@ -126,32 +126,32 @@ TEST_F(UnsignedDivTest, UInt64_Test)
    {
    UInt64ReturnType testFunction;
    ASSERT_COMPILE(OMR::JitBuilder::TypeDictionary, TestUInt64Div, testFunction);
-   ASSERT_EQ(testFunction(1, 1), 1);
-   ASSERT_EQ(testFunction(1, 2), 0);
-   ASSERT_EQ(testFunction(10, 3), 3);
-   ASSERT_EQ(testFunction(static_cast<uint64_t>(INT64_MIN), static_cast<uint64_t>(-1)), 0);
+   ASSERT_EQ(testFunction(1u, 1u), 1u);
+   ASSERT_EQ(testFunction(1u, 2u), 0u);
+   ASSERT_EQ(testFunction(10u, 3u), 3u);
+   ASSERT_EQ(testFunction(static_cast<uint64_t>(INT64_MIN), static_cast<uint64_t>(-1)), 0u);
    ASSERT_EQ(testFunction(UINT64_MAX, 1), UINT64_MAX);
-   ASSERT_EQ(testFunction(UINT64_MAX, UINT64_MAX), 1);
-   ASSERT_EQ(testFunction(UINT64_MAX - 1, UINT64_MAX), 0);
-   ASSERT_EQ(testFunction(UINT64_MAX, UINT64_MAX - 1), 1);
-   ASSERT_EQ(testFunction(static_cast<uint64_t>(INT64_MAX), UINT64_MAX), 0);
-   ASSERT_EQ(testFunction(UINT64_MAX, 10), UINT64_MAX / 10);
+   ASSERT_EQ(testFunction(UINT64_MAX, UINT64_MAX), 1u);
+   ASSERT_EQ(testFunction(UINT64_MAX - 1, UINT64_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT64_MAX, UINT64_MAX - 1u), 1u);
+   ASSERT_EQ(testFunction(static_cast<uint64_t>(INT64_MAX), UINT64_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT64_MAX, 10u), UINT64_MAX / 10u);
    }
 
 TEST_F(UnsignedRemTest, UInt64_Test)
    {
    UInt64ReturnType testFunction;
    ASSERT_COMPILE(OMR::JitBuilder::TypeDictionary, TestUInt64Rem, testFunction);
-   ASSERT_EQ(testFunction(1, 1), 0);
-   ASSERT_EQ(testFunction(1, 2), 1);
-   ASSERT_EQ(testFunction(10, 3), 1);
+   ASSERT_EQ(testFunction(1u, 1u), 0u);
+   ASSERT_EQ(testFunction(1u, 2u), 1u);
+   ASSERT_EQ(testFunction(10u, 3u), 1u);
    ASSERT_EQ(testFunction(static_cast<uint64_t>(INT64_MIN), static_cast<uint64_t>(-1)), static_cast<uint64_t>(INT64_MIN));
-   ASSERT_EQ(testFunction(UINT64_MAX, 1), 0);
-   ASSERT_EQ(testFunction(UINT64_MAX, UINT64_MAX), 0);
-   ASSERT_EQ(testFunction(UINT64_MAX - 1, UINT64_MAX), UINT64_MAX - 1);
-   ASSERT_EQ(testFunction(UINT64_MAX, UINT64_MAX - 1), 1);
+   ASSERT_EQ(testFunction(UINT64_MAX, 1u), 0u);
+   ASSERT_EQ(testFunction(UINT64_MAX, UINT64_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT64_MAX - 1u, UINT64_MAX), UINT64_MAX - 1u);
+   ASSERT_EQ(testFunction(UINT64_MAX, UINT64_MAX - 1), 1u);
    ASSERT_EQ(testFunction(static_cast<uint64_t>(INT64_MAX), UINT64_MAX), static_cast<uint64_t>(INT64_MAX));
-   ASSERT_EQ(testFunction(UINT64_MAX, 10), UINT64_MAX % 10);
+   ASSERT_EQ(testFunction(UINT64_MAX, 10u), UINT64_MAX % 10u);
    }
 
 typedef uint32_t (*UInt32ReturnType)(uint32_t, uint32_t);
@@ -159,16 +159,16 @@ TEST_F(UnsignedDivTest, UInt32_Test)
    {
    UInt32ReturnType testFunction;
    ASSERT_COMPILE(OMR::JitBuilder::TypeDictionary, TestUInt32Div, testFunction);
-   ASSERT_EQ(testFunction(1, 1), 1);
-   ASSERT_EQ(testFunction(1, 2), 0);
-   ASSERT_EQ(testFunction(10, 3), 3);
-   ASSERT_EQ(testFunction(static_cast<uint32_t>(INT32_MIN), static_cast<uint32_t>(-1)), 0);
-   ASSERT_EQ(testFunction(UINT32_MAX, 1), UINT32_MAX);
-   ASSERT_EQ(testFunction(UINT32_MAX, UINT32_MAX), 1);
-   ASSERT_EQ(testFunction(UINT32_MAX - 1, UINT32_MAX), 0);
-   ASSERT_EQ(testFunction(UINT32_MAX, UINT32_MAX - 1), 1);
-   ASSERT_EQ(testFunction(static_cast<uint32_t>(INT32_MAX), UINT32_MAX), 0);
-   ASSERT_EQ(testFunction(UINT32_MAX, 10), UINT32_MAX / 10);
+   ASSERT_EQ(testFunction(1u, 1u), 1u);
+   ASSERT_EQ(testFunction(1u, 2u), 0u);
+   ASSERT_EQ(testFunction(10u, 3u), 3u);
+   ASSERT_EQ(testFunction(static_cast<uint32_t>(INT32_MIN), static_cast<uint32_t>(-1)), 0u);
+   ASSERT_EQ(testFunction(UINT32_MAX, 1u), UINT32_MAX);
+   ASSERT_EQ(testFunction(UINT32_MAX, UINT32_MAX), 1u);
+   ASSERT_EQ(testFunction(UINT32_MAX - 1u, UINT32_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT32_MAX, UINT32_MAX - 1u), 1u);
+   ASSERT_EQ(testFunction(static_cast<uint32_t>(INT32_MAX), UINT32_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT32_MAX, 10u), UINT32_MAX / 10u);
    }
 
 
@@ -176,16 +176,16 @@ TEST_F(UnsignedRemTest, UInt32_Test)
    {
    UInt32ReturnType testFunction;
    ASSERT_COMPILE(OMR::JitBuilder::TypeDictionary, TestUInt32Rem, testFunction);
-   ASSERT_EQ(testFunction(1, 1), 0);
-   ASSERT_EQ(testFunction(1, 2), 1);
-   ASSERT_EQ(testFunction(10, 3), 1);
+   ASSERT_EQ(testFunction(1u, 1u), 0u);
+   ASSERT_EQ(testFunction(1u, 2u), 1u);
+   ASSERT_EQ(testFunction(10u, 3u), 1u);
    ASSERT_EQ(testFunction(static_cast<uint32_t>(INT32_MIN), static_cast<uint32_t>(-1)), static_cast<uint32_t>(INT32_MIN));
-   ASSERT_EQ(testFunction(UINT32_MAX, 1), 0);
-   ASSERT_EQ(testFunction(UINT32_MAX, UINT32_MAX), 0);
-   ASSERT_EQ(testFunction(UINT32_MAX - 1, UINT32_MAX), UINT32_MAX - 1);
-   ASSERT_EQ(testFunction(UINT32_MAX, UINT32_MAX - 1), 1);
+   ASSERT_EQ(testFunction(UINT32_MAX, 1u), 0u);
+   ASSERT_EQ(testFunction(UINT32_MAX, UINT32_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT32_MAX - 1u, UINT32_MAX), UINT32_MAX - 1u);
+   ASSERT_EQ(testFunction(UINT32_MAX, UINT32_MAX - 1u), 1u);
    ASSERT_EQ(testFunction(static_cast<uint32_t>(INT32_MAX), UINT32_MAX), static_cast<uint32_t>(INT32_MAX));
-   ASSERT_EQ(testFunction(UINT32_MAX, 10), UINT32_MAX % 10);
+   ASSERT_EQ(testFunction(UINT32_MAX, 10u), UINT32_MAX % 10u);
    }
 
 typedef uint16_t (*UInt16ReturnType)(uint16_t, uint16_t);
@@ -193,16 +193,16 @@ TEST_F(UnsignedDivTest, UInt16_Test)
    {
    UInt16ReturnType testFunction;
    ASSERT_COMPILE(OMR::JitBuilder::TypeDictionary, TestUInt16Div, testFunction);
-   ASSERT_EQ(testFunction(1, 1), 1);
-   ASSERT_EQ(testFunction(1, 2), 0);
-   ASSERT_EQ(testFunction(10, 3), 3);
-   ASSERT_EQ(testFunction(static_cast<uint16_t>(INT16_MIN), static_cast<uint16_t>(-1)), 0);
-   ASSERT_EQ(testFunction(UINT16_MAX, 1), UINT16_MAX);
-   ASSERT_EQ(testFunction(UINT16_MAX, UINT16_MAX), 1);
-   ASSERT_EQ(testFunction(UINT16_MAX - 1, UINT16_MAX), 0);
-   ASSERT_EQ(testFunction(UINT16_MAX, UINT16_MAX - 1), 1);
-   ASSERT_EQ(testFunction(static_cast<uint16_t>(INT16_MAX), UINT16_MAX), 0);
-   ASSERT_EQ(testFunction(UINT16_MAX, 10), UINT16_MAX / 10);
+   ASSERT_EQ(testFunction(1u, 1u), 1u);
+   ASSERT_EQ(testFunction(1u, 2u), 0u);
+   ASSERT_EQ(testFunction(10u, 3u), 3u);
+   ASSERT_EQ(testFunction(static_cast<uint16_t>(INT16_MIN), static_cast<uint16_t>(-1)), 0u);
+   ASSERT_EQ(testFunction(UINT16_MAX, 1u), UINT16_MAX);
+   ASSERT_EQ(testFunction(UINT16_MAX, UINT16_MAX), 1u);
+   ASSERT_EQ(testFunction(UINT16_MAX - 1u, UINT16_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT16_MAX, UINT16_MAX - 1u), 1u);
+   ASSERT_EQ(testFunction(static_cast<uint16_t>(INT16_MAX), UINT16_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT16_MAX, 10u), UINT16_MAX / 10u);
    }
 
 
@@ -210,16 +210,16 @@ TEST_F(UnsignedRemTest, UInt16_Test)
    {
    UInt16ReturnType testFunction;
    ASSERT_COMPILE(OMR::JitBuilder::TypeDictionary, TestUInt16Rem, testFunction);
-   ASSERT_EQ(testFunction(1, 1), 0);
-   ASSERT_EQ(testFunction(1, 2), 1);
-   ASSERT_EQ(testFunction(10, 3), 1);
+   ASSERT_EQ(testFunction(1u, 1u), 0u);
+   ASSERT_EQ(testFunction(1u, 2u), 1u);
+   ASSERT_EQ(testFunction(10u, 3u), 1u);
    ASSERT_EQ(testFunction(static_cast<uint16_t>(INT16_MIN), static_cast<uint16_t>(-1)), static_cast<uint16_t>(INT16_MIN));
-   ASSERT_EQ(testFunction(UINT16_MAX, 1), 0);
-   ASSERT_EQ(testFunction(UINT16_MAX, UINT16_MAX), 0);
-   ASSERT_EQ(testFunction(UINT16_MAX - 1, UINT16_MAX), UINT16_MAX - 1);
-   ASSERT_EQ(testFunction(UINT16_MAX, UINT16_MAX - 1), 1);
+   ASSERT_EQ(testFunction(UINT16_MAX, 1u), 0u);
+   ASSERT_EQ(testFunction(UINT16_MAX, UINT16_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT16_MAX - 1u, UINT16_MAX), UINT16_MAX - 1u);
+   ASSERT_EQ(testFunction(UINT16_MAX, UINT16_MAX - 1), 1u);
    ASSERT_EQ(testFunction(static_cast<uint16_t>(INT16_MAX), UINT16_MAX), static_cast<uint16_t>(INT16_MAX));
-   ASSERT_EQ(testFunction(UINT16_MAX, 10), UINT16_MAX % 10);
+   ASSERT_EQ(testFunction(UINT16_MAX, 10u), UINT16_MAX % 10u);
    }
 
 typedef uint8_t (*UInt8ReturnType)(uint8_t, uint8_t);
@@ -227,16 +227,16 @@ TEST_F(UnsignedDivTest, UInt8_Test)
    {
    UInt8ReturnType testFunction;
    ASSERT_COMPILE(OMR::JitBuilder::TypeDictionary, TestUInt8Div, testFunction);
-   ASSERT_EQ(testFunction(1, 1), 1);
-   ASSERT_EQ(testFunction(1, 2), 0);
-   ASSERT_EQ(testFunction(10, 3), 3);
-   ASSERT_EQ(testFunction(static_cast<uint8_t>(INT8_MIN), static_cast<uint8_t>(-1)), 0);
-   ASSERT_EQ(testFunction(UINT8_MAX, 1), UINT8_MAX);
-   ASSERT_EQ(testFunction(UINT8_MAX, UINT8_MAX), 1);
-   ASSERT_EQ(testFunction(UINT8_MAX - 1, UINT8_MAX), 0);
-   ASSERT_EQ(testFunction(UINT8_MAX, UINT8_MAX - 1), 1);
-   ASSERT_EQ(testFunction(static_cast<uint8_t>(INT8_MAX), UINT8_MAX), 0);
-   ASSERT_EQ(testFunction(UINT8_MAX, 10), UINT8_MAX / 10);
+   ASSERT_EQ(testFunction(1u, 1u), 1u);
+   ASSERT_EQ(testFunction(1u, 2u), 0u);
+   ASSERT_EQ(testFunction(10u, 3u), 3u);
+   ASSERT_EQ(testFunction(static_cast<uint8_t>(INT8_MIN), static_cast<uint8_t>(-1)), 0u);
+   ASSERT_EQ(testFunction(UINT8_MAX, 1u), UINT8_MAX);
+   ASSERT_EQ(testFunction(UINT8_MAX, UINT8_MAX), 1u);
+   ASSERT_EQ(testFunction(UINT8_MAX - 1u, UINT8_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT8_MAX, UINT8_MAX - 1u), 1u);
+   ASSERT_EQ(testFunction(static_cast<uint8_t>(INT8_MAX), UINT8_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT8_MAX, 10u), UINT8_MAX / 10u);
    }
 
 
@@ -244,15 +244,15 @@ TEST_F(UnsignedRemTest, UInt8_Test)
    {
    UInt8ReturnType testFunction;
    ASSERT_COMPILE(OMR::JitBuilder::TypeDictionary, TestUInt8Rem, testFunction);
-   ASSERT_EQ(testFunction(1, 1), 0);
-   ASSERT_EQ(testFunction(1, 2), 1);
-   ASSERT_EQ(testFunction(10, 3), 1);
+   ASSERT_EQ(testFunction(1u, 1u), 0u);
+   ASSERT_EQ(testFunction(1u, 2u), 1u);
+   ASSERT_EQ(testFunction(10u, 3u), 1u);
    ASSERT_EQ(testFunction(static_cast<uint8_t>(INT8_MIN), static_cast<uint8_t>(-1)), static_cast<uint8_t>(INT8_MIN));
-   ASSERT_EQ(testFunction(UINT8_MAX, 1), 0);
-   ASSERT_EQ(testFunction(UINT8_MAX, UINT8_MAX), 0);
-   ASSERT_EQ(testFunction(UINT8_MAX - 1, UINT8_MAX), UINT8_MAX - 1);
-   ASSERT_EQ(testFunction(UINT8_MAX, UINT8_MAX - 1), 1);
+   ASSERT_EQ(testFunction(UINT8_MAX, 1u), 0u);
+   ASSERT_EQ(testFunction(UINT8_MAX, UINT8_MAX), 0u);
+   ASSERT_EQ(testFunction(UINT8_MAX - 1u, UINT8_MAX), UINT8_MAX - 1u);
+   ASSERT_EQ(testFunction(UINT8_MAX, UINT8_MAX - 1u), 1u);
    ASSERT_EQ(testFunction(static_cast<uint8_t>(INT8_MAX), UINT8_MAX), static_cast<uint8_t>(INT8_MAX));
-   ASSERT_EQ(testFunction(UINT8_MAX, 10), UINT8_MAX % 10);
+   ASSERT_EQ(testFunction(UINT8_MAX, 10u), UINT8_MAX % 10u);
    }
 
