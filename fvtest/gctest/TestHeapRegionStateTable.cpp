@@ -40,12 +40,12 @@ TEST(TestHeapRegionStateTable, HeapRegionStateTable)
     HeapRegionStateTable table;
     ASSERT_TRUE(table.initialize(&forge, heapBase, regionShift, regionCount));
 
-    EXPECT_EQ(table.getIndex((void *)0x100), 0);
-    EXPECT_EQ(table.getIndex((void *)0x101), 0);
-    EXPECT_EQ(table.getIndex((void *)0x102), 1);
-    EXPECT_EQ(table.getIndex((void *)0x103), 1);
-    EXPECT_EQ(table.getIndex((void *)0x104), 2);
-    EXPECT_EQ(table.getIndex((void *)0x105), 2);
+    EXPECT_EQ(table.getIndex((void *)0x100), 0u);
+    EXPECT_EQ(table.getIndex((void *)0x101), 0u);
+    EXPECT_EQ(table.getIndex((void *)0x102), 1u);
+    EXPECT_EQ(table.getIndex((void *)0x103), 1u);
+    EXPECT_EQ(table.getIndex((void *)0x104), 2u);
+    EXPECT_EQ(table.getIndex((void *)0x105), 2u);
 
     EXPECT_EQ(table.getRegionState((void *)0x101), HEAP_REGION_STATE_NONE);
     EXPECT_EQ(table.getRegionState((void *)0x102), HEAP_REGION_STATE_NONE);
