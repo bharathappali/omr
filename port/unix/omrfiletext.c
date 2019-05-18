@@ -25,6 +25,11 @@
  * @ingroup Port
  * @brief file
  */
+#if defined(MUSL)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
 
 #include <nl_types.h>
 #include <langinfo.h>

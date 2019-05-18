@@ -36,6 +36,11 @@
  * the error.  As a result the error message is not stored at time of the reported error, but can be looked
  * up at a later time.
  */
+#if defined(MUSL)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
 
 #include <stdlib.h>
 #include <string.h>

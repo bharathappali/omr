@@ -25,6 +25,12 @@
  * @ingroup Port
  * @brief Heap Utilities
  */
+#if defined(MUSL)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
+
 #include "omrport.h"
 #include "omrportpriv.h"
 #include "omrportpg.h"

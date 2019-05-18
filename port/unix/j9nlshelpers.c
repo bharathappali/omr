@@ -26,6 +26,11 @@
  * @brief Native language support helpers
  */
 
+#if defined(MUSL)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
 
 #include <unistd.h>
 #include <sys/types.h>

@@ -25,6 +25,11 @@
  * @ingroup Port
  * @brief Dump formatting
  */
+#if defined(MUSL)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
 
 #include <sys/types.h>
 #if defined(AIXPPC)

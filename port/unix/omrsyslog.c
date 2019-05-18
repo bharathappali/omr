@@ -25,6 +25,12 @@
  * @ingroup Port
  * @brief System logging support
  */
+#if defined(MUSL)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
+
 #include <string.h>
 #include <syslog.h>
 #include "omrportpriv.h"

@@ -25,7 +25,11 @@
  * @ingroup Port
  * @brief Memory category management
  */
-
+#if defined(MUSL)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
 
 /*
  * This file contains the code for managing memory categories.

@@ -32,6 +32,11 @@
  * These functions are not accessible via the port library function table.
  */
 
+#if defined(MUSL)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
 
 #include <string.h>
 #include <errno.h>

@@ -25,6 +25,12 @@
  * @ingroup Port
  * @brief Signal handling
  */
+#if defined(MUSL)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
+
 #include "omrcfg.h"
 #include "omrport.h"
 #include "omrutil.h"

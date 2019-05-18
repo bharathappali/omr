@@ -26,6 +26,11 @@
  * @brief Native language support
  * @deprecated NLS API is deprecated.
  */
+#if defined(MUSL)
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#endif
 
 #include "omrcomp.h"
 #include "omrport.h"
