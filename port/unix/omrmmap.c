@@ -33,7 +33,7 @@
  * memory mapping facilites do not exist at all. On these platforms the API will
  * still be available, but will simply read the file into allocated memory.
  */
-#if defined(MUSL)
+#if defined(OMR_MUSL_CLIB)
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 #endif

@@ -25,7 +25,7 @@
  * @ingroup Port
  * @brief Heap Utilities
  */
-#if defined(MUSL)
+#if defined(OMR_MUSL_CLIB)
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 #endif

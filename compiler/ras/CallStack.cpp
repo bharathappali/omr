@@ -175,7 +175,7 @@ const char *TR_PPCCallStackIterator::getProcedureName()
 #include <execinfo.h>
 #include <cxxabi.h>
 
-#if defined(MUSL)
+#if defined(OMR_MUSL_CLIB)
 char ** backtrace_symbols(void *const *trace, int size)
 {
 	return NULL;
@@ -185,7 +185,7 @@ int backtrace(void **trace, int size)
 {
 	return 0;
 }
-#endif
+#endif /* defined(OMR_MUSL_CLIB) */
 
 void TR_LinuxCallStackIterator::printSymbol(int32_t frame, char *sig, TR::Compilation *comp)
    {

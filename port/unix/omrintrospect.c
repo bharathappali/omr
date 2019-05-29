@@ -51,10 +51,10 @@
 #include <dlfcn.h>
 #include <sys/utsname.h>
 #include <inttypes.h>
-#if defined(MUSL)
+#if defined(OMR_MUSL_CLIB)
 #include<libunwind.h>
 typedef unw_context_t ucontext_t;
-#endif /* defined(MUSL) */
+#endif /* defined(OMR_MUSL_CLIB) */
 #elif defined(AIXPPC)
 #include <sys/ldr.h>
 #include <sys/debug.h>
@@ -1430,12 +1430,12 @@ setup_native_thread(J9ThreadWalkState *state, thread_context *sigContext, int he
 			/* we're using the provided context instead of generating it */
 			memcpy(state->current_thread->context, ((OMRUnixSignalInfo *)sigContext)->platformSignalInfo.context, size);
 		} else if (state->current_thread->thread_id == omrthread_get_ras_tid()) {
-#if defined(MUSL)
+#if defined(OMR_MUSL_CLIB)
 			unw_getcontext((ucontext_t *)state->current_thread->context);
 #else
 			/* return context for current thread */
 			getcontext((ucontext_t *)state->current_thread->context);
-#endif /* defined(MUSl) */
+#endif /* defined(OMR_MUSL_CLIB) */
 		} else {
 			memcpy(state->current_thread->context, (void *)data->thread->context, size);
 		}

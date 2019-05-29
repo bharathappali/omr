@@ -43,7 +43,7 @@ endif
 ### Global Flags
 ###
 
-GLOBAL_CPPFLAGS += -DLINUX -DMUSL -Wno-stringop-truncation -D_REENTRANT -D_FILE_OFFSET_BITS=64
+GLOBAL_CPPFLAGS += -DLINUX -DOMR_MUSL_CLIB -Wno-stringop-truncation -D_REENTRANT -D_FILE_OFFSET_BITS=64
 ifeq (gcc,$(OMR_TOOLCHAIN))
 	GLOBAL_CFLAGS+=-fno-strict-aliasing
 	GLOBAL_CXXFLAGS+=-fno-strict-aliasing -std=c++0x

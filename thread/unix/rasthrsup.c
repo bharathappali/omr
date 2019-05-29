@@ -27,19 +27,19 @@
 #include "omrthread.h"
 
 #if defined(LINUX)
-#if defined(MUSL) /* adding this as MUSL doesn't allow version in __GLIBC_PREREQ to get compiled */
+#if defined(OMR_MUSL_CLIB) /* adding this as MUSL doesn't allow version in __GLIBC_PREREQ to get compiled */
 #include <sys/syscall.h>
 #else
 #if __GLIBC_PREREQ(2,4)
 #include <sys/syscall.h>
 #endif /* __GLIBC_PREREQ(2,4) */
-#endif /* defined(MUSL) */
+#endif /* defined(OMR_MUSL_CLIB) */
 #elif defined(OSX)
 #include <pthread.h>
 #include <sys/syscall.h>
 #endif /* defined(LINUX) */
 
-#if defined(LINUX) && !defined(MUSL)
+#if defined(LINUX) && !defined(OMR_MUSL_CLIB)
 /**
  * This is required to pick up correct thread IDs on Linux
  */
@@ -57,7 +57,7 @@
 /* this line is needed to build the syscall macro which is called (as gettid) within the function */
 _syscall0(pid_t, gettid);
 #endif /* !__GLIBC_PREREQ(2,4) && !defined(OMRZTPF) */
-#endif /* defined(LINUX) && !defined(MUSL) */
+#endif /* defined(LINUX) && !defined(OMR_MUSL_CLIB) */
 
 uintptr_t
 omrthread_get_ras_tid(void)
@@ -65,7 +65,7 @@ omrthread_get_ras_tid(void)
 	uintptr_t threadID = 0;
 
 #if defined(LINUX) && !defined(OMRZTPF)
-#if defined(MUSL)
+#if defined(OMR_MUSL_CLIB)
 	threadID = (uintptr_t) syscall(SYS_gettid);
 #else
 #if __GLIBC_PREREQ(2,4)
@@ -78,7 +78,7 @@ omrthread_get_ras_tid(void)
 	 */
 	threadID = (uintptr_t) gettid();
 #endif /* __GLIBC_PREREQ(2,4) */
-#endif /* defined(MUSL) */
+#endif /* defined(OMR_MUSL_CLIB) */
 #elif defined(OSX)
     uint64_t tid64;
     pthread_threadid_np(NULL, &tid64);

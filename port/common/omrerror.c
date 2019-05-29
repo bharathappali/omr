@@ -36,7 +36,7 @@
  * the error.  As a result the error message is not stored at time of the reported error, but can be looked
  * up at a later time.
  */
-#if defined(MUSL)
+#if defined(OMR_MUSL_CLIB)
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 #endif
