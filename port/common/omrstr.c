@@ -45,6 +45,7 @@
 
 #if defined(LINUX) || defined(AIXPPC) || defined(J9ZOS390) || defined(OSX)
 #include <iconv.h>
+#include <byteswap.h>
 typedef iconv_t  charconvState_t;
 #define J9STR_USE_ICONV
 /* need to get the EBCDIC version of nl_langinfo */
@@ -171,6 +172,8 @@ static int32_t convertPlatformToWide(struct OMRPortLibrary *portLibrary, charcon
 static int32_t convertWideToPlatform(struct OMRPortLibrary *portLibrary, charconvState_t encodingState, const uint8_t **inBuffer, uintptr_t *inBufferSize, uint8_t *outBuffer, uintptr_t outBufferSize);
 static int32_t convertLatin1ToMutf8(struct OMRPortLibrary *portLibrary, const uint8_t **inBuffer, uintptr_t *inBufferSize, uint8_t *outBuffer, uintptr_t outBufferSize);
 static int32_t convertMutf8ToLatin1(struct OMRPortLibrary *portLibrary, const uint8_t **inBuffer, uintptr_t *inBufferSize, uint8_t *outBuffer, uintptr_t outBufferSize);
+static BOOLEAN checkIsLittleEndian();
+static void swapByteStream(uint8_t buffer, size_t size);
 
 #if defined(OMR_OS_WINDOWS)
 static void convertJ9TimeToSYSTEMTIME(J9TimeInfo *j9TimeInfo, SYSTEMTIME *systemTime);
@@ -2462,6 +2465,26 @@ omrstr_subst_time(struct OMRPortLibrary *portLibrary, char *buf, uint32_t bufLen
 #define CONVERSION_BUFFER_SIZE 256
 #define WIDE_CHAR_SIZE 2
 #define BYTE_ORDER_MARK 0xFEFF
+#define BOM_FF 0xFF
+#define BOM_FE 0xFE
+
+static BOOLEAN
+checkIsLittleEndian() {
+int n = 1;
+if(*(char *)&n == 1)
+    return TRUE;
+return FALSE;
+}
+
+static void
+swapByteStream(uint8_t *buffer, size_t size) {
+    for (int i = 0; i < size/2; i++) {
+        uint16_t charToConv = *((uint16_t *) buffer + i);
+        *((uint16_t *) buffer + i) = __bswap_16(charToConv);
+    }
+}
+
+
 /*
 * Two step process: convert platform encoding to wide characters, then convert wide characters to modified UTF-8.
 *  iconv() is resumable if the output buffer is full, but Windows MultiByteToWideChar() is not.
@@ -2531,12 +2554,28 @@ convertPlatformToMutf8(struct OMRPortLibrary *portLibrary, uint32_t codePage, co
 			return wideBufferPartialSize; /* unrecoverable error */
 		}
 		if (firstConversion) {
-			uint16_t firstChar = *((uint16_t *) wideBuffer);
-			firstConversion = FALSE;
-			if (BYTE_ORDER_MARK == firstChar) { /* ignore it */
-				tempWideBuffer += 2;
-				tempWideBufferSize -= 2;
-			}
+            BOOLEAN byteOrderMarkExists = TRUE;
+            uint8_t primaryChar = *wideBuffer;
+            uint8_t secondaryChar = *(wideBuffer+1);
+            if(primaryChar == BOM_FF && secondaryChar == BOM_FE) { /* Stream is Little Endian */
+                if(!checkIsLittleEndian) { /* Endianess mismatch stream endianess needs to be swapped */
+                    swapByteStream(wideBuffer, tempWideBufferSize);
+                }
+            } else if(primaryChar == BOM_FE && secondaryChar == BOM_FF) { /* Stream is Big Endian */
+                if(checkIsLittleEndian) { /* Endianess mismatch stream endianess needs to be swapped */
+                    swapByteStream(wideBuffer, tempWideBufferSize);
+                }
+            } else { /* No BOM so the stream is Big Endian */
+                byteOrderMarkExists = FALSE;
+                if(checkIsLittleEndian) { /* Endianess mismatch stream endianess needs to be swapped */
+                    swapByteStream(wideBuffer, tempWideBufferSize);
+                }
+            }
+            firstConversion = FALSE;
+            if (byteOrderMarkExists) { /* ignore it */
+                tempWideBuffer += 2;
+                tempWideBufferSize -= 2;
+            }    
 		}
 		/* updates platformCursor to character after the last translated character */
 		if (wideBufferPartialSize < 0) {
